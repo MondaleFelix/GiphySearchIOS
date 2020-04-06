@@ -12,6 +12,7 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
+    var network = GifNetwork()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,9 @@ class ViewController: UIViewController {
         searchBar.returnKeyType = .search
     }
 
+    func searchGifs(for searchText: String) {
+        network.fetchGifs(searchTerm: searchText)
+    }
 }
 
 // MARK: - Tableview functions
@@ -46,7 +50,7 @@ extension ViewController: UISearchTextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         if textField.text != nil {
-            print(textField.text!)
+                searchGifs(for: textField.text!)
         }
         return true
     }
